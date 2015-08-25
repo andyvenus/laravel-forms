@@ -1,0 +1,30 @@
+{
+  "name": "andyvenus/laravel-form",
+  "description": "A form builder for Laravel 5",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "The Foundation Stage Forum Ltd",
+      "homepage": "http://www.eyfs.info"
+    },
+    {
+      "name": "Andy Venus",
+      "email": "andy@avscripts.net"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "AV\\LaravelForm\\": "src/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0.x-dev"
+    }
+  },
+  "minimum-stability": "dev",
+  "require": {
+    "andyvenus/form": "dev-master",
+  }
+}

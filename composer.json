@@ -16,7 +16,10 @@
   "autoload": {
     "psr-4": {
       "AV\\LaravelForm\\": "src/"
-    }
+    },
+    "files": [
+      "src/helpers/form_helpers.php"
+    ]
   },
   "extra": {
     "branch-alias": {

@@ -25,6 +25,6 @@
   },
   "minimum-stability": "dev",
   "require": {
-    "andyvenus/form": "dev-master"
+    "andyvenus/form": "1.0.*"
   }
 }

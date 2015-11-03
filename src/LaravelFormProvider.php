@@ -7,6 +7,8 @@
 
 namespace AV\LaravelForm;
 
+use AV\Form\Type\StrictSelectType;
+use AV\Form\Type\TypeHandler;
 use Illuminate\Support\ServiceProvider;
 
 class LaravelFormProvider extends ServiceProvider
@@ -36,5 +38,9 @@ class LaravelFormProvider extends ServiceProvider
             'AV\Form\RestoreDataHandler\RestoreDataHandlerInterface',
             'AV\LaravelForm\RestoreDataHandler\LaravelRestoreDataHandler'
         );
+
+        $this->app->singleton('AV\Form\Type\TypeHandler', function($app) {
+            return new TypeHandler(['select' => new StrictSelectType()]);
+        });
     }
 }

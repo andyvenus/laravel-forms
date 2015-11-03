@@ -5,7 +5,7 @@
 @foreach($form->getSections() as $id => $section)
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-header">{{ $section['label'] }}</h3>
+            <h3 class="panel-title">{{ $section['label'] }}</h3>
         </div>
 
         <div class="panel-body">

@@ -13,6 +13,9 @@ class LaravelValidatorExtension implements ValidatorExtensionInterface
      */
     private $formHandler;
 
+    /**
+     * @var bool
+     */
     private $isValid = true;
 
     /**
@@ -39,25 +42,16 @@ class LaravelValidatorExtension implements ValidatorExtensionInterface
      * @return mixed
      * @throws \Exception
      */
-    public function validate($scope = null, $options = null)
+    private function validate()
     {
         if (isset($this->validator)) {
             throw new \Exception('Cannot validate the same form twice, use the existing result');
         }
 
-        $validationRules = [];
-        $validationAttributeNames = [];
+        $fieldRules = $this->getFieldValidationRules($this->formHandler->getFormBlueprint()->getAll());
 
-        // Get validation rules from the form fields
-        foreach ($this->formHandler->getFormBlueprint()->getAll() as $field) {
-            if (isset($field['options']['validation'])) {
-                $validationRules[$field['name']] = $field['options']['validation'];
-
-                if (isset($field['options']['label'])) {
-                    $validationAttributeNames[$field['name']] = $field['options']['label'];
-                }
-            }
-        }
+        $validationRules = $fieldRules['rules'];
+        $validationAttributeNames = $fieldRules['names'];
 
         // Get validation rules from any assigned entities (models)
         foreach ($this->formHandler->getEntities() as $entity) {
@@ -87,6 +81,52 @@ class LaravelValidatorExtension implements ValidatorExtensionInterface
         $this->validator->setAttributeNames($validationAttributeNames);
 
         $this->isValid = $this->validator->passes();
+    }
+
+    /**
+     * Recursively read in the validation rules from the form fields and convert the field names to dot notation
+     * 
+     * @param $fields
+     * @return array
+     */
+    private function getFieldValidationRules($fields)
+    {
+        $results = ['rules' => [], 'names' => []];
+
+        foreach ($fields as $field) {
+            if (isset($field['options']['validation'])) {
+                if (!isset($field['original_name'])) {
+                    $paramName = $field['name'];
+                } else {
+                    $paramName = $this->fieldNameToDot($field['original_name']);
+                }
+
+                $results['rules'][$paramName] = $field['options']['validation'];
+
+                if (isset($field['options']['label'])) {
+                    $results['names'][$paramName] = $field['options']['label'];
+                }
+            }
+
+            if (isset($field['fields'])) {
+                $results = array_merge_recursive($results, $this->getFieldValidationRules($field['fields']));
+            }
+        }
+
+        return $results;
+    }
+
+    /**
+     * Convert a form field name to dot notation for the Laravel validator
+     * 
+     * @param $fieldName
+     * @return string
+     */
+    private function fieldNameToDot($fieldName)
+    {
+        $fieldName = trim(str_replace(['][', '[', ']'], '.', $fieldName), '.');
+
+        return $fieldName;
     }
 
     /**

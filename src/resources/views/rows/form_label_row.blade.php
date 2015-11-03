@@ -1,7 +1,9 @@
 <div class="form-group @if(isset($field['has_error']) && $field['has_error'] == true)has-error @endif">
-    <div class="control-label">
-        {!! form_label($field, $attr) !!}
-    </div>
+    @if (form_label($field))
+        <div class="control-label">
+            {!! form_label($field) !!}
+        </div>
+    @endif
 
     {!! form_field($field, $attr) !!}
 

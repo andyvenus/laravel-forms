@@ -44,7 +44,7 @@ class FormBuilder
     }
 
     /**
-     * @param FormBlueprint $form
+     * @param \AV\Form\FormBlueprint $form
      * @param null $request
      * @param mixed $entities
      * @param null $formView

@@ -71,17 +71,17 @@ function form_field(array $fieldData, $attributes = [])
     }
 
     try {
-        $field = view($templateName, $fieldData);
+        $field = view($templateName, $fieldData)->render();
     } catch (\InvalidArgumentException $e) {
-        $field = view('forms::fields.input', $fieldData);
+        $field = view('forms::fields.input', $fieldData)->render();
     }
 
     return $field;
 }
 
-function form_submit_button(\AV\Form\FormViewInterface $form)
+function form_submit_button(\AV\Form\FormViewInterface $form, $label = null)
 {
-    $label = $form->getSubmitButtonLabel();
+    $label = $label ?: $form->getSubmitButtonLabel();
 
     return view('forms::submit_button')->with('label', $label)->render();
 }

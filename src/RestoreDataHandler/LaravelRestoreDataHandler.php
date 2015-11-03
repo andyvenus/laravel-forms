@@ -90,6 +90,19 @@ class LaravelRestoreDataHandler implements RestoreDataHandlerInterface
     }
 
     /**
+     * If called, the form was not valid
+     *
+     * @param FormHandler $formHandler
+     * @return mixed
+     */
+    public function setInvalid(FormHandler $formHandler)
+    {
+        $formName = $this->getFormName($formHandler);
+
+        $this->request->session()->forget('form_valid_'.$formName);
+    }
+
+    /**
      * Check if the form was valid
      *
      * @param FormHandler $formHandler

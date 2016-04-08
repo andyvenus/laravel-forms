@@ -56,6 +56,18 @@ function form_label(array $fieldData)
     return view('forms::label', $fieldData)->render();
 }
 
+function label_for_attribute(array $options)
+{
+    if(empty($options)) { return ""; }
+    if(empty($options['attr'])) { return ""; }
+    if(!empty($options['attr']['id'])) { // If there is an id, use that
+        return "for='".$options['attr']['id']."'";
+    } elseif (!empty($options['attr']['name'])) { // Otherwise try the name
+        return "for='".$options['attr']['name']."'";
+    }
+    return "";
+}
+
 function form_field(array $fieldData, $attributes = [])
 {
     if (isset($fieldData['options']['attr']) && is_array($fieldData['options']['attr'])) {

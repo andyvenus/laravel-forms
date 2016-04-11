@@ -58,7 +58,7 @@ function form_label(array $fieldData)
 
 function label_for_attribute($options)
 {
-    if(!empty($options) && !empty($options['attr'])) { 
+    if(!empty($options) && !empty($options['attr']) && !empty($options['attr']['id'])) { 
         $id = $options['attr']['id'];
         return "for='".$id."'";
     }

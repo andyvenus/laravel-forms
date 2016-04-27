@@ -117,7 +117,7 @@ function form_attributes($attr, $type = null)
 
     $attrString = '';
     foreach ($attr as $name => $value) {
-        $attrString .= ' '.$name.'="'.$value.'"';
+        $attrString .= ' '.$name.'="'.e($value).'"';
     }
 
     return $attrString;

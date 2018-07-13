@@ -76,7 +76,7 @@ class LaravelValidatorExtension implements ValidatorExtensionInterface
             }
         }
 
-        $this->validator = \Validator::make($this->formHandler->getData(), $validationRules);
+        $this->validator = \Validator::make($this->formHandler->getData(), $validationRules, $fieldRules['messages']);
 
         $this->validator->setAttributeNames($validationAttributeNames);
 
@@ -85,13 +85,13 @@ class LaravelValidatorExtension implements ValidatorExtensionInterface
 
     /**
      * Recursively read in the validation rules from the form fields and convert the field names to dot notation
-     * 
+     *
      * @param $fields
      * @return array
      */
     private function getFieldValidationRules($fields)
     {
-        $results = ['rules' => [], 'names' => []];
+        $results = ['rules' => [], 'names' => [], 'messages' => []];
 
         foreach ($fields as $field) {
             if (isset($field['options']['validation'])) {
@@ -106,6 +106,12 @@ class LaravelValidatorExtension implements ValidatorExtensionInterface
                 if (isset($field['options']['label'])) {
                     $results['names'][$paramName] = $field['options']['label'];
                 }
+
+                if (isset($field['options']['validation_messages'])) {
+                    foreach ($field['options']['validation_messages'] as $validation => $message) {
+                        $results['messages']["$paramName.$validation"] = $field['options']['validation_messages'];
+                    }
+                }
             }
 
             if (isset($field['fields'])) {
@@ -118,7 +124,7 @@ class LaravelValidatorExtension implements ValidatorExtensionInterface
 
     /**
      * Convert a form field name to dot notation for the Laravel validator
-     * 
+     *
      * @param $fieldName
      * @return string
      */

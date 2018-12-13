@@ -109,7 +109,7 @@ class LaravelValidatorExtension implements ValidatorExtensionInterface
 
                 if (isset($field['options']['validation_messages'])) {
                     foreach ($field['options']['validation_messages'] as $validation => $message) {
-                        $results['messages']["$paramName.$validation"] = $field['options']['validation_messages'];
+                        $results['messages']["$paramName.$validation"] = $message;
                     }
                 }
             }

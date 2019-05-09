@@ -10,7 +10,7 @@
                 @endforeach
             </optgroup>
         @else
-            <option value="{{ $choice_value }}" @if(isset($value) && (!is_array($value) && (strval($choice_value) === strval($value)) ?? (is_array($value) and in_array($choice_value, $value))))selected="selected"@endif @if (isset($options['disabled_choices']) && in_array($choice_value, $options['disabled_choices']))disabled @endif>
+            <option value="{{ $choice_value }}" @if(isset($value) && ((!is_array($value) && strval($choice_value) === strval($value)) || (is_array($value) && in_array($choice_value, $value))))selected="selected"@endif @if (isset($options['disabled_choices']) && in_array($choice_value, $options['disabled_choices']))disabled @endif>
                 {{ $choice_name }}
             </option>
         @endif

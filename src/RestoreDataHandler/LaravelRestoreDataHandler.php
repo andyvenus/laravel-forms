@@ -27,13 +27,13 @@ class LaravelRestoreDataHandler implements RestoreDataHandlerInterface
     {
         $formName = $this->getFormName($formHandler);
 
-        $restoredErrors = $request->session()->get('form_errors_'.$formName);
+        $restoredErrors = $this->request->session()->get('form_errors_'.$formName);
 
         if (!empty($restoredErrors) && is_array($restoredErrors)) {
             $formHandler->addCustomErrors($restoredErrors);
         }
 
-        return $request->session()->get('form_data_'.$formName, null);
+        return $this->request->session()->get('form_data_'.$formName, null);
     }
 
     /**
@@ -47,7 +47,7 @@ class LaravelRestoreDataHandler implements RestoreDataHandlerInterface
 
         $this->stripObjects($data);
 
-        $request->session()->flash('form_data_'.$formName, $data);
+        $this->request->session()->flash('form_data_'.$formName, $data);
     }
 
     /**

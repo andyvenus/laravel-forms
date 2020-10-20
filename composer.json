@@ -26,9 +26,12 @@
       "dev-master": "1.0.x-dev"
     }
   },
-  "minimum-stability": "dev",
   "require": {
     "php": "^7.0.0",
-    "andyvenus/form": "1.0.*"
+    "andyvenus/form": "v2.x-dev"
+  },
+  "require-dev": {
+    "laravel/framework": "8.*",
+    "phpunit/phpunit": "^9.4.0"
   }
 }

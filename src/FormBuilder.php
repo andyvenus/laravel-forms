@@ -7,6 +7,8 @@
 
 namespace AV\LaravelForm;
 
+use AV\Form\DataStructure\DataStructure;
+use AV\Form\DataStructureForm;
 use AV\Form\FormBlueprint;
 use AV\Form\FormHandlerFactory;
 use AV\Form\FormView;
@@ -75,5 +77,14 @@ class FormBuilder
         }
 
         return $formHandler;
+    }
+
+    public function forStructure(DataStructure $dataStructure, $request = null, ?FormBlueprint $formBlueprint = null, array $entities = [])
+    {
+        if (!$formBlueprint) {
+            $formBlueprint = new DataStructureForm($dataStructure);
+        }
+
+        return $this->build($formBlueprint, $request, $entities);
     }
 }

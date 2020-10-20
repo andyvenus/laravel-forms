@@ -78,13 +78,4 @@ class FormBuilder
 
         return $formHandler;
     }
-
-    public function forStructure(DataStructure $dataStructure, $request = null, ?FormBlueprint $formBlueprint = null, array $entities = [])
-    {
-        if (!$formBlueprint) {
-            $formBlueprint = new DataStructureForm($dataStructure);
-        }
-
-        return $this->build($formBlueprint, $request, $entities);
-    }
 }

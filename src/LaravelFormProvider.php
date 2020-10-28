@@ -9,6 +9,8 @@ namespace AV\LaravelForm;
 
 use AV\Form\Type\StrictSelectType;
 use AV\Form\Type\TypeHandler;
+use AV\Form\Validator\DataStructureValidator;
+use AV\LaravelForm\DataStructure\LaravelFieldValidator;
 use Illuminate\Support\ServiceProvider;
 
 class LaravelFormProvider extends ServiceProvider
@@ -41,6 +43,14 @@ class LaravelFormProvider extends ServiceProvider
 
         $this->app->singleton('AV\Form\Type\TypeHandler', function($app) {
             return new TypeHandler(['select' => new StrictSelectType()]);
+        });
+
+        $this->app->singleton(DataStructureValidator::class, function($app) {
+            $dataStructureValidator = new DataStructureValidator();
+
+            $laravelValidator = $this->app->make(LaravelFieldValidator::class);
+
+            $dataStructureValidator->addValidator($laravelValidator);
         });
     }
 }

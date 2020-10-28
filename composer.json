@@ -27,8 +27,9 @@
     }
   },
   "require": {
-    "php": "^7.0.0",
-    "andyvenus/form": "v2.x-dev"
+    "php": "^7.4",
+    "andyvenus/form": "v2.x-dev",
+    "mockery/mockery": "^1.4"
   },
   "require-dev": {
     "laravel/framework": "8.*",

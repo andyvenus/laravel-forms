@@ -28,7 +28,7 @@
   },
   "minimum-stability": "dev",
   "require": {
-    "php": "^7.0.0",
+    "php": ">=7.0.0",
     "andyvenus/form": "1.0.*"
   }
 }

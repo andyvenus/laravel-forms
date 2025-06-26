@@ -12,7 +12,8 @@ use AV\Form\FormHandlerFactory;
 use AV\Form\FormView;
 use AV\LaravelForm\ValidatorExtension\LaravelValidatorExtension;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Translation\TranslatorInterface as LegacyTranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Build forms for Laravel
@@ -38,7 +39,7 @@ class FormBuilder
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function setTranslator(TranslatorInterface $translator)
+    public function setTranslator(LegacyTranslatorInterface|TranslatorInterface $translator)
     {
         $this->translator = $translator;
     }
